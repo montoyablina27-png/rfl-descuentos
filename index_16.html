@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>RFL® · Actualización de Descuentos</title>
+<style>
+  :root{
+    --navy:#0D1B3E; --navy2:#072758;
+    --arena:#C9C3BA; --arena-clara:#F0ECE6; --arena-media:#EAE6DF;
+    --blanco:#FFFFFF; --gris:#8A8680; --verde:#196B24;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:Arial,"Helvetica Neue",Calibri,sans-serif;
+    background:var(--arena-clara); color:var(--navy);
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---------- HEADER ---------- */
+  header{
+    background:var(--navy); color:var(--blanco);
+    padding:18px 28px; display:flex; align-items:center; justify-content:space-between;
+    position:sticky; top:0; z-index:50;
+  }
+  .logo{font-family:"Arial Black",Arial,sans-serif;font-weight:900;font-size:22px;letter-spacing:-0.5px}
+  .firma{font-size:9px;letter-spacing:0.25em;color:var(--arena);text-transform:uppercase;text-align:right}
+
+  /* ---------- TÍTULO ---------- */
+  .titulo-wrap{padding:26px 28px 6px}
+  h1{font-family:"Arial Black",Arial,sans-serif;font-weight:900;font-size:26px;text-transform:uppercase;letter-spacing:-0.3px}
+  .actualizado{font-size:12px;color:var(--gris);margin-top:4px}
+  .demo-ribbon{
+    display:inline-block;margin-top:10px;background:var(--navy2);color:var(--blanco);
+    font-size:11px;font-weight:bold;letter-spacing:0.05em;padding:5px 12px;border-radius:6px;text-transform:uppercase;
+  }
+
+  /* ---------- CADENA ---------- */
+  .cadenas{padding:18px 28px 4px;display:flex;flex-wrap:wrap;align-items:center;gap:14px}
+  .cadenas-label{font-size:11px;text-transform:uppercase;letter-spacing:0.12em;color:var(--gris);font-weight:bold}
+  .seg{display:inline-flex;background:var(--blanco);border:2px solid var(--navy);border-radius:8px;overflow:hidden}
+  .seg button{font-family:"Arial Black",Arial,sans-serif;font-weight:900;font-size:15px;letter-spacing:0.04em;
+    padding:11px 26px;border:none;background:transparent;color:var(--navy);cursor:pointer;text-transform:uppercase}
+  .seg button+button{border-left:2px solid var(--navy)}
+  .seg button.activa{background:var(--navy);color:var(--blanco)}
+  .seg button:not(.activa):hover{background:var(--arena-media)}
+  .aviso-cadena{margin:10px 28px 0;padding:12px 16px;border-radius:8px;background:var(--navy2);color:var(--blanco);font-size:14px;display:none}
+  .aviso-cadena b{font-family:"Arial Black",Arial,sans-serif;letter-spacing:0.03em}
+  .elige{padding:50px 28px;text-align:center;color:var(--navy)}
+  .elige h2{font-family:"Arial Black",Arial,sans-serif;font-size:20px;text-transform:uppercase;margin-bottom:8px}
+  .elige p{color:var(--gris);font-size:14px}
+  .tag-cadena{background:var(--navy)!important;color:var(--blanco)!important}
+
+  /* ---------- FILTROS ---------- */
+  .filtros{
+    padding:16px 28px; display:flex; flex-wrap:wrap; gap:14px; align-items:flex-end;
+    position:sticky; top:62px; background:var(--arena-clara); z-index:40;
+  }
+  .campo{display:flex;flex-direction:column;gap:5px}
+  .campo label{font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:var(--gris);font-weight:bold}
+  select,input[type=text]{
+    font-family:inherit;font-size:14px;color:var(--navy);background:var(--blanco);
+    border:1px solid var(--arena);border-radius:6px;padding:9px 12px;min-width:170px;cursor:pointer;
+  }
+  input[type=text]{cursor:text;min-width:220px}
+  select:focus,input:focus{outline:none;border-color:var(--navy)}
+  .btn-limpiar{
+    font-family:inherit;font-size:13px;font-weight:bold;color:var(--blanco);background:var(--navy);
+    border:none;border-radius:6px;padding:10px 16px;cursor:pointer;text-transform:uppercase;letter-spacing:0.05em;
+  }
+  .btn-limpiar:hover{background:var(--navy2)}
+
+  /* ---------- CONTADOR ---------- */
+  .contador{padding:6px 28px 0;font-size:13px;color:var(--gris)}
+  .contador b{color:var(--navy)}
+
+  /* ---------- BARRA MÓVIL (toggle de filtros) — oculta en desktop ---------- */
+  .barra-movil{display:none}
+  .btn-filtros{
+    font-family:inherit;font-size:14px;font-weight:bold;color:var(--blanco);background:var(--navy);
+    border:none;border-radius:6px;padding:10px 16px;cursor:pointer;text-transform:uppercase;letter-spacing:0.05em;
+    display:inline-flex;align-items:center;gap:8px;
+  }
+  .btn-filtros .num-activos{
+    background:var(--blanco);color:var(--navy);border-radius:10px;padding:0 7px;
+    font-size:12px;line-height:18px;min-width:18px;text-align:center;
+  }
+  .btn-filtros .caret{
+    width:0;height:0;border-left:5px solid transparent;border-right:5px solid transparent;
+    border-top:6px solid currentColor;transition:transform .2s;
+  }
+  .btn-filtros.abierto .caret{transform:rotate(180deg)}
+  .conteo-movil{font-size:13px;color:var(--gris)}
+  .conteo-movil b{color:var(--navy)}
+
+  /* ---------- GRID ---------- */
+  .grid{
+    padding:18px 28px 60px;
+    display:grid; gap:18px;
+    grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+  }
+  .card{
+    background:var(--blanco); border-radius:8px; overflow:hidden;
+    box-shadow:0 1px 3px rgba(13,27,62,0.10); display:flex; flex-direction:column;
+  }
+  .card-img{
+    position:relative; aspect-ratio:3/4; background:var(--arena-clara);
+    display:flex; align-items:center; justify-content:center;
+  }
+  .card-img img{width:100%;height:100%;object-fit:contain}
+  .badge-desc{
+    position:absolute; top:10px; right:10px; background:var(--navy); color:var(--blanco);
+    border-radius:6px; padding:6px 9px; font-family:"Arial Black",Arial,sans-serif;font-weight:900;font-size:15px;
+  }
+  .sin-img{flex-direction:column;gap:6px;color:var(--gris);text-align:center;padding:16px}
+  .sin-img .ref-fallback{font-size:12px;font-weight:bold;color:var(--navy)}
+  .sin-img .txt{font-size:10px;text-transform:uppercase;letter-spacing:0.08em}
+  .card-body{padding:12px 14px 16px;display:flex;flex-direction:column;gap:6px}
+  .ref{font-size:13px;font-weight:bold;color:var(--navy);letter-spacing:0.01em}
+  .nombre{font-size:12px;color:var(--gris);line-height:1.3}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+  .tag{font-size:10px;text-transform:uppercase;letter-spacing:0.05em;color:var(--gris);background:var(--arena-media);padding:3px 8px;border-radius:4px}
+  .precios{margin-top:4px;font-size:13px}
+  .precio-old{color:var(--gris);text-decoration:line-through;margin-right:7px}
+  .precio-new{color:var(--verde);font-weight:bold}
+
+  /* ---------- VACÍO ---------- */
+  .vacio{padding:60px 28px;text-align:center;color:var(--gris);font-size:15px}
+
+  /* ---------- FOOTER ---------- */
+  footer{padding:22px 28px;text-align:right;border-top:1px solid var(--arena)}
+  footer span{font-size:9px;letter-spacing:0.25em;color:var(--gris);text-transform:uppercase}
+
+  @media(max-width:600px){
+    .barra-movil{
+      display:flex;align-items:center;justify-content:space-between;gap:12px;
+      padding:12px 20px;position:sticky;top:62px;z-index:45;background:var(--arena-clara);
+    }
+    .filtros{
+      position:static;flex-direction:column;align-items:stretch;
+      max-height:0;overflow:hidden;padding-top:0;padding-bottom:0;
+      transition:max-height .25s ease,padding .25s ease;
+    }
+    .filtros.abierto{max-height:560px;padding-top:8px;padding-bottom:16px}
+    select,input[type=text]{min-width:100%;width:100%}
+    .campo{flex:1 1 100%}
+    .contador{display:none}
+    .grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
+    .cadenas{padding:14px 20px 0}
+    .seg{display:flex;width:100%}
+    .seg button{flex:1;padding:12px 8px}
+    .aviso-cadena{margin:10px 20px 0}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">RFL®</div>
+  <div class="firma">Por Rifle<br>Para Colombia</div>
+</header>
+
+<div class="titulo-wrap">
+  <h1>Actualización de Descuentos</h1>
+  <div class="actualizado" id="actualizado"></div>
+  <div class="demo-ribbon" id="demo-ribbon">Vista previa · datos de ejemplo</div>
+</div>
+
+<div class="cadenas">
+  <span class="cadenas-label">Elige tu cadena</span>
+  <div class="seg" id="seg-cadena"><button type="button" data-c="Agaval">Agaval</button><button type="button" data-c="Flamingo">Flamingo</button></div>
+</div>
+<div class="aviso-cadena" id="aviso-cadena"></div>
+
+<div class="barra-movil">
+  <button class="btn-filtros" id="btn-filtros" aria-expanded="false" aria-controls="filtros">
+    Filtros<span class="num-activos" id="num-activos" style="display:none">0</span><span class="caret"></span>
+  </button>
+  <span class="conteo-movil" id="conteo-movil"></span>
+</div>
+
+<div class="filtros" id="filtros">
+  <div class="campo" id="campo-tienda">
+    <label for="f-tienda">Tienda</label>
+    <select id="f-tienda"><option value="">Todas</option></select>
+  </div>
+  <div class="campo">
+    <label for="f-genero">Género</label>
+    <select id="f-genero"><option value="">Todos</option></select>
+  </div>
+  <div class="campo">
+    <label for="f-categoria">Categoría</label>
+    <select id="f-categoria"><option value="">Todas</option></select>
+  </div>
+  <div class="campo">
+    <label for="f-descuento">Descuento</label>
+    <select id="f-descuento"><option value="">Todos</option></select>
+  </div>
+  <div class="campo">
+    <label for="f-buscar">Buscar referencia</label>
+    <input type="text" id="f-buscar" placeholder="Ej: 270G000 / NEGRO">
+  </div>
+  <button class="btn-limpiar" id="btn-limpiar">Limpiar filtros</button>
+</div>
+
+<div class="contador" id="contador"></div>
+<div class="grid" id="grid"></div>
+
+<footer><span>Por Rifle · Para Colombia</span></footer>
+
+<script>
+/* ============================================================
+   BLOQUE DE DATOS  — el script de Python reemplaza TODO entre
+   estos marcadores. No edites a mano si vas a usar el generador.
+   ============================================================ */
+/* === DATOS_INICIO === */
+const META = {"actualizado": "19/11/2026", "demo": false};
+const DATOS = [
+  {
+    "ref": "100G001 AZU184025",
+    "nombre": "AZUL NORUEGA MEDIO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 20,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_100G001_AZU184025_0.jpg"
+  },
+  {
+    "ref": "100G001 ROS171633",
+    "nombre": "ROSA RODOCROSITA OSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 40,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_100G001_ROS171633_0.jpg"
+  },
+  {
+    "ref": "102H003 CRU110605",
+    "nombre": "CRUDO MARFIL CLARO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 20,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_102H003_CRU110605_0.jpg"
+  },
+  {
+    "ref": "102H012 BLA110601",
+    "nombre": "BLANCO 0 CLARO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 20,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_102H012_BLA110601_0.jpg"
+  },
+  {
+    "ref": "102H020 NEG194007",
+    "nombre": "NEGRO SOMBRIO ULTRAOSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 20,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_102H020_NEG194007_0.jpg"
+  },
+  {
+    "ref": "102H021 CAF191213",
+    "nombre": "CAFE BUHO MEDIO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 20,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_102H021_CAF191213_0.jpg"
+  },
+  {
+    "ref": "102H022 CRU110605",
+    "nombre": "CRUDO MARFIL CLARO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 20,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_102H022_CRU110605_0.jpg"
+  },
+  {
+    "ref": "102H056 NEG194007",
+    "nombre": "NEGRO SOMBRIO ULTRAOSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 20,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_102H056_NEG194007_0.jpg"
+  },
+  {
+    "ref": "110E003 BLA110601",
+    "nombre": "BLANCO 0 CLARO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 20,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_110E003_BLA110601_0.jpg"
+  },
+  {
+    "ref": "110G001 BLA110601",
+    "nombre": "BLANCO 0 CLARO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 20,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_110G001_BLA110601_0.jpg"
+  },
+  {
+    "ref": "110G001 NEG194007",
+    "nombre": "NEGRO SOMBRIO ULTRAOSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 20,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_110G001_NEG194007_0.jpg"
+  },
+  {
+    "ref": "110G003 BLA110601",
+    "nombre": "BLANCO 0 CLARO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 20,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_110G003_BLA110601_0.jpg"
+  },
+  {
+    "ref": "110G004 BLA110601",
+    "nombre": "BLANCO 0 CLARO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 20,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_110G004_BLA110601_0.jpg"
+  },
+  {
+    "ref": "110G004 NEG194007",
+    "nombre": "NEGRO SOMBRIO ULTRAOSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 20,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_110G004_NEG194007_0.jpg"
+  },
+  {
+    "ref": "110G050 VER190417",
+    "nombre": "VERDE ALGA ULTRAOSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 20,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_110G050_VER190417_0.jpg"
+  },
+  {
+    "ref": "130G000 NEG194007",
+    "nombre": "NEGRO SOMBRIO ULTRAOSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 20,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_130G000_NEG194007_0.jpg"
+  },
+  {
+    "ref": "130G001 AZU144306",
+    "nombre": "AZUL NUBE CLARO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 20,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_130G001_AZU144306_0.jpg"
+  },
+  {
+    "ref": "132H007 AZU144306",
+    "nombre": "AZUL NUBE CLARO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 20,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_132H007_AZU144306_0.jpg"
+  },
+  {
+    "ref": "160G003 VER190414",
+    "nombre": "VERDE PINO OSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 20,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_160G003_VER190414_0.jpg"
+  },
+  {
+    "ref": "190G010 AMA110510",
+    "nombre": "AMARILLO RESPLANDOR CLARO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 20,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_190G010_AMA110510_0.jpg"
+  },
+  {
+    "ref": "200G000 VER165807",
+    "nombre": "VERDE MILICIA MEDIO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 20,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_200G000_VER165807_0.jpg"
+  },
+  {
+    "ref": "200G000 VER190315",
+    "nombre": "VERDE SELVOSO OSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 20,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_200G000_VER190315_0.jpg"
+  },
+  {
+    "ref": "210G003 MOR163812",
+    "nombre": "MORADO LILA MEDIO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 20,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_210G003_MOR163812_0.jpg"
+  },
+  {
+    "ref": "232H005 AZU194024",
+    "nombre": "AZUL COLONIAL ULTRAOSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 20,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_232H005_AZU194024_0.jpg"
+  },
+  {
+    "ref": "260F001 NEG194004",
+    "nombre": "NEGRO NOCHE ULTRAOSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 20,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_260F001_NEG194004_0.jpg"
+  },
+  {
+    "ref": "260F001 VER180317",
+    "nombre": "VERDE BOSCOSO OSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 20,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_260F001_VER180317_0.jpg"
+  },
+  {
+    "ref": "260G001 GRI193901",
+    "nombre": "GRIS IMAN OSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 20,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_260G001_GRI193901_0.jpg"
+  },
+  {
+    "ref": "260G001 NEG194007",
+    "nombre": "NEGRO SOMBRIO ULTRAOSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 20,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_260G001_NEG194007_0.jpg"
+  },
+  {
+    "ref": "260G001 VER180317",
+    "nombre": "VERDE BOSCOSO OSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 20,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_260G001_VER180317_0.jpg"
+  },
+  {
+    "ref": "260G002 NEG194004",
+    "nombre": "NEGRO NOCHE ULTRAOSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 20,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_260G002_NEG194004_0.jpg"
+  },
+  {
+    "ref": "260G050 BEI131009",
+    "nombre": "BEIGE ESCULTURA CLARO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 20,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_260G050_BEI131009_0.jpg"
+  },
+  {
+    "ref": "270B000 GRI193915",
+    "nombre": "GRIS HIDRARGIRIO OSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 40,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_270B000_GRI193915_0.jpg"
+  },
+  {
+    "ref": "270B000 NEG194007",
+    "nombre": "NEGRO SOMBRIO ULTRAOSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 40,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_270B000_NEG194007_0.jpg"
+  },
+  {
+    "ref": "270B000 ROS171927",
+    "nombre": "ROSA COLORETE MEDIO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 40,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_270B000_ROS171927_0.jpg"
+  },
+  {
+    "ref": "270G000 BEI161406",
+    "nombre": "BEIGE ATMOSFERA MEDIO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 40,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_270G000_BEI161406_0.jpg"
+  },
+  {
+    "ref": "270G000 GRI193915",
+    "nombre": "GRIS HIDRARGIRIO OSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 40,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_270G000_GRI193915_0.jpg"
+  },
+  {
+    "ref": "270G000 NEG194007",
+    "nombre": "NEGRO SOMBRIO ULTRAOSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 40,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_270G000_NEG194007_0.jpg"
+  },
+  {
+    "ref": "270G000 ROS171927",
+    "nombre": "ROSA COLORETE MEDIO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 40,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_270G000_ROS171927_0.jpg"
+  },
+  {
+    "ref": "270G000 VER176009",
+    "nombre": "VERDE LAUREL OSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Flamingo",
+    "descuento": 40,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_270G000_VER176009_0.jpg"
+  },
+  {
+    "ref": "100G001 ROJ191757",
+    "nombre": "ROJO CIÑUELA OSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_100G001_ROJ191757_0.jpg"
+  },
+  {
+    "ref": "100G001 ROS171633",
+    "nombre": "ROSA RODOCROSITA OSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_100G001_ROS171633_0.jpg"
+  },
+  {
+    "ref": "102H003 CRU110605",
+    "nombre": "CRUDO MARFIL CLARO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_102H003_CRU110605_0.jpg"
+  },
+  {
+    "ref": "102H020 NEG194007",
+    "nombre": "NEGRO SOMBRIO ULTRAOSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_102H020_NEG194007_0.jpg"
+  },
+  {
+    "ref": "102H056 NEG194007",
+    "nombre": "NEGRO SOMBRIO ULTRAOSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_102H056_NEG194007_0.jpg"
+  },
+  {
+    "ref": "110E003 BLA110601",
+    "nombre": "BLANCO 0 CLARO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_110E003_BLA110601_0.jpg"
+  },
+  {
+    "ref": "110G001 BLA110601",
+    "nombre": "BLANCO 0 CLARO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_110G001_BLA110601_0.jpg"
+  },
+  {
+    "ref": "110G001 NEG194007",
+    "nombre": "NEGRO SOMBRIO ULTRAOSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_110G001_NEG194007_0.jpg"
+  },
+  {
+    "ref": "110G003 AZU164132",
+    "nombre": "AZUL BEBE MEDIO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_110G003_AZU164132_0.jpg"
+  },
+  {
+    "ref": "110G003 BLA110601",
+    "nombre": "BLANCO 0 CLARO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_110G003_BLA110601_0.jpg"
+  },
+  {
+    "ref": "110G004 BLA110601",
+    "nombre": "BLANCO 0 CLARO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_110G004_BLA110601_0.jpg"
+  },
+  {
+    "ref": "110G004 NEG194007",
+    "nombre": "NEGRO SOMBRIO ULTRAOSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_110G004_NEG194007_0.jpg"
+  },
+  {
+    "ref": "130G000 NEG194007",
+    "nombre": "NEGRO SOMBRIO ULTRAOSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_130G000_NEG194007_0.jpg"
+  },
+  {
+    "ref": "130G001 AZU194024",
+    "nombre": "AZUL COLONIAL ULTRAOSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_130G001_AZU194024_0.jpg"
+  },
+  {
+    "ref": "130G001 AZU174021",
+    "nombre": "AZUL DENIM MEDIO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_130G001_AZU174021_0.jpg"
+  },
+  {
+    "ref": "130G001 AZU144306",
+    "nombre": "AZUL NUBE CLARO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_130G001_AZU144306_0.jpg"
+  },
+  {
+    "ref": "132H009 AZU174021",
+    "nombre": "AZUL DENIM MEDIO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_132H009_AZU174021_0.jpg"
+  },
+  {
+    "ref": "133H000 AZU194024",
+    "nombre": "AZUL COLONIAL ULTRAOSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_133H000_AZU194024_0.jpg"
+  },
+  {
+    "ref": "133H003 AZU144306",
+    "nombre": "AZUL NUBE CLARO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_133H003_AZU144306_0.jpg"
+  },
+  {
+    "ref": "133H006 AZU194024",
+    "nombre": "AZUL COLONIAL ULTRAOSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_133H006_AZU194024_0.jpg"
+  },
+  {
+    "ref": "133H010 AZU174021",
+    "nombre": "AZUL DENIM MEDIO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_133H010_AZU174021_0.jpg"
+  },
+  {
+    "ref": "160G003 VER190414",
+    "nombre": "VERDE PINO OSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_160G003_VER190414_0.jpg"
+  },
+  {
+    "ref": "182H002 CAF171316",
+    "nombre": "CAFE RUBIO MEDIO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_182H002_CAF171316_0.jpg"
+  },
+  {
+    "ref": "190G010 AMA110510",
+    "nombre": "AMARILLO RESPLANDOR CLARO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_190G010_AMA110510_0.jpg"
+  },
+  {
+    "ref": "200G000 AZU154706",
+    "nombre": "AZUL ACUOSO MEDIO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_200G000_AZU154706_0.jpg"
+  },
+  {
+    "ref": "200G000 AZU154309",
+    "nombre": "AZUL ESTERLINA MEDIO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_200G000_AZU154309_0.jpg"
+  },
+  {
+    "ref": "200G000 AZU144307",
+    "nombre": "AZUL INVIERNO MEDIO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_200G000_AZU144307_0.jpg"
+  },
+  {
+    "ref": "200G000 BEI161108",
+    "nombre": "BEIGE TWILL MEDIO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_200G000_BEI161108_0.jpg"
+  },
+  {
+    "ref": "200G000 CRU110107",
+    "nombre": "CRUDO COXAL CLARO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_200G000_CRU110107_0.jpg"
+  },
+  {
+    "ref": "200G000 ROS132005",
+    "nombre": "ROSA NOUVEAU CLARO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_200G000_ROS132005_0.jpg"
+  },
+  {
+    "ref": "200G000 VER165807",
+    "nombre": "VERDE MILICIA MEDIO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_200G000_VER165807_0.jpg"
+  },
+  {
+    "ref": "200G000 VER194517",
+    "nombre": "VERDE PANTANAL OSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_200G000_VER194517_0.jpg"
+  },
+  {
+    "ref": "200G000 VER190315",
+    "nombre": "VERDE SELVOSO OSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_200G000_VER190315_0.jpg"
+  },
+  {
+    "ref": "202H008 ROS171623",
+    "nombre": "ROSA CUMBIA OSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_202H008_ROS171623_0.jpg"
+  },
+  {
+    "ref": "202H010 ROS161610",
+    "nombre": "ROSA ALBARICOQUE MEDIO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_202H010_ROS161610_0.jpg"
+  },
+  {
+    "ref": "202H015 CRU110604",
+    "nombre": "CRUDO LUNA CLARO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_202H015_CRU110604_0.jpg"
+  },
+  {
+    "ref": "203H005 CAF190814",
+    "nombre": "CAFE MOREL ULTRAOSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_203H005_CAF190814_0.jpg"
+  },
+  {
+    "ref": "210G003 MOR163812",
+    "nombre": "MORADO LILA MEDIO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_210G003_MOR163812_0.jpg"
+  },
+  {
+    "ref": "210G050 AZU144306",
+    "nombre": "AZUL NUBE CLARO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_210G050_AZU144306_0.jpg"
+  },
+  {
+    "ref": "213H008 AZU174021",
+    "nombre": "AZUL DENIM MEDIO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_213H008_AZU174021_0.jpg"
+  },
+  {
+    "ref": "222H005 NEG194007",
+    "nombre": "NEGRO SOMBRIO ULTRAOSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_222H005_NEG194007_0.jpg"
+  },
+  {
+    "ref": "232H005 AZU194024",
+    "nombre": "AZUL COLONIAL ULTRAOSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_232H005_AZU194024_0.jpg"
+  },
+  {
+    "ref": "232H010 AZU194021",
+    "nombre": "AZUL HADAL ULTRAOSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_232H010_AZU194021_0.jpg"
+  },
+  {
+    "ref": "232H011 AZU144306",
+    "nombre": "AZUL NUBE CLARO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_232H011_AZU144306_0.jpg"
+  },
+  {
+    "ref": "232H014 AZU174021",
+    "nombre": "AZUL DENIM MEDIO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_232H014_AZU174021_0.jpg"
+  },
+  {
+    "ref": "260F001 NEG194004",
+    "nombre": "NEGRO NOCHE ULTRAOSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_260F001_NEG194004_0.jpg"
+  },
+  {
+    "ref": "260F001 VER180317",
+    "nombre": "VERDE BOSCOSO OSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_260F001_VER180317_0.jpg"
+  },
+  {
+    "ref": "260F002 NEG194004",
+    "nombre": "NEGRO NOCHE ULTRAOSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_260F002_NEG194004_0.jpg"
+  },
+  {
+    "ref": "260G001 GRI193901",
+    "nombre": "GRIS IMAN OSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_260G001_GRI193901_0.jpg"
+  },
+  {
+    "ref": "260G001 NEG194007",
+    "nombre": "NEGRO SOMBRIO ULTRAOSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_260G001_NEG194007_0.jpg"
+  },
+  {
+    "ref": "260G001 VER180317",
+    "nombre": "VERDE BOSCOSO OSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_260G001_VER180317_0.jpg"
+  },
+  {
+    "ref": "260G002 NEG194004",
+    "nombre": "NEGRO NOCHE ULTRAOSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_260G002_NEG194004_0.jpg"
+  },
+  {
+    "ref": "260G050 BEI131009",
+    "nombre": "BEIGE ESCULTURA CLARO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_260G050_BEI131009_0.jpg"
+  },
+  {
+    "ref": "262H008 BEI161104",
+    "nombre": "BEIGE CERAMICA CLARO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_262H008_BEI161104_0.jpg"
+  },
+  {
+    "ref": "270B000 GRI193915",
+    "nombre": "GRIS HIDRARGIRIO OSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_270B000_GRI193915_0.jpg"
+  },
+  {
+    "ref": "270B000 NEG194007",
+    "nombre": "NEGRO SOMBRIO ULTRAOSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_270B000_NEG194007_0.jpg"
+  },
+  {
+    "ref": "270B000 ROS171927",
+    "nombre": "ROSA COLORETE MEDIO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_270B000_ROS171927_0.jpg"
+  },
+  {
+    "ref": "270G000 BEI161406",
+    "nombre": "BEIGE ATMOSFERA MEDIO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_270G000_BEI161406_0.jpg"
+  },
+  {
+    "ref": "270G000 NEG194007",
+    "nombre": "NEGRO SOMBRIO ULTRAOSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_270G000_NEG194007_0.jpg"
+  },
+  {
+    "ref": "270G000 ROS171927",
+    "nombre": "ROSA COLORETE MEDIO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_270G000_ROS171927_0.jpg"
+  },
+  {
+    "ref": "270G000 VER176009",
+    "nombre": "VERDE LAUREL OSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_270G000_VER176009_0.jpg"
+  },
+  {
+    "ref": "273H000 CAF190808",
+    "nombre": "CAFE ALCALLER ULTRAOSCURO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_273H000_CAF190808_0.jpg"
+  },
+  {
+    "ref": "282H003 CRU110606",
+    "nombre": "CRUDO PRISTINO CLARO",
+    "genero": "",
+    "categoria": "",
+    "cadena": "Agaval",
+    "descuento": 30,
+    "imagen": "https://imagenesonline.gco.com.co/pub/Rifle/36_282H003_CRU110606_0.jpg"
+  }
+];
+const TIENDAS = {};
+/* === DATOS_FIN === */
+
+/* ---------- Utilidades ---------- */
+const $ = id => document.getElementById(id);
+const unicos = (arr, k) => [...new Set(arr.map(d => d[k]).filter(v => v !== undefined && v !== null && v !== ""))];
+
+function llenarSelect(sel, valores, formato = v => v){
+  valores.forEach(v => {
+    const o = document.createElement("option");
+    o.value = v; o.textContent = formato(v); sel.appendChild(o);
+  });
+}
+
+/* ---------- Inicialización ---------- */
+$("actualizado").textContent = "Actualizado: " + (META.actualizado || "—");
+if(!META.demo) $("demo-ribbon").style.display = "none";
+
+[["f-genero","genero"],["f-categoria","categoria"]].forEach(([id,k])=>{
+  const vals = unicos(DATOS,k).filter(v=>v!=="—").sort();
+  if(vals.length) llenarSelect($(id), vals); else $(id).closest(".campo").style.display="none";
+});
+/* Cadena elegida (se recuerda en el link: #agaval / #flamingo) */
+const CADENAS = [...new Set(DATOS.map(x=>x.cadena))].sort();
+let CADENA = CADENAS.find(c => c.toLowerCase() === decodeURIComponent(location.hash.slice(1)).toLowerCase()) || "";
+function llenarDescuentos(){
+  const sel = $("f-descuento");
+  sel.innerHTML = '<option value="">Todos</option>';
+  llenarSelect(sel, unicos(DATOS.filter(x=>x.cadena===CADENA),"descuento").sort((a,b)=>a-b), v => v + "%");
+}
+function elegirCadena(c){
+  CADENA = c;
+  history.replaceState(null, "", "#" + c.toLowerCase());
+  document.querySelectorAll("#seg-cadena button").forEach(b => b.classList.toggle("activa", b.dataset.c === c));
+  $("f-genero").value=""; $("f-categoria").value=""; $("f-buscar").value="";
+  llenarDescuentos();
+  render();
+}
+document.querySelectorAll("#seg-cadena button").forEach(b => b.addEventListener("click", () => elegirCadena(b.dataset.c)));
+
+// Filtro de tienda: se llena solo si el archivo trae tiendas; si no, se oculta.
+const NOMBRES_TIENDAS = Object.keys(TIENDAS).sort((a,b)=>a.localeCompare(b,"es"));
+if(NOMBRES_TIENDAS.length){
+  llenarSelect($("f-tienda"), NOMBRES_TIENDAS);
+}else{
+  const ct = document.getElementById("campo-tienda");
+  if(ct) ct.style.display = "none";
+}
+
+/* ---------- Render ---------- */
+function tarjeta(d){
+  const card = document.createElement("div");
+  card.className = "card";
+
+  const imgWrap = document.createElement("div");
+  imgWrap.className = "card-img";
+
+  const badge = document.createElement("div");
+  badge.className = "badge-desc";
+  badge.textContent = d.descuento + "%";
+
+  const img = document.createElement("img");
+  img.loading = "lazy";
+  img.alt = d.ref;
+  img.src = d.imagen || "";
+  img.onerror = () => {
+    imgWrap.classList.add("sin-img");
+    imgWrap.innerHTML =
+      '<div class="ref-fallback">'+d.ref+'</div><div class="txt">Imagen no disponible</div>';
+    imgWrap.appendChild(badge);
+  };
+  if(!d.imagen){ img.onerror(); } else { imgWrap.appendChild(img); imgWrap.appendChild(badge); }
+
+  const body = document.createElement("div");
+  body.className = "card-body";
+  let html = '<div class="ref">'+d.ref+'</div>';
+  if(d.nombre) html += '<div class="nombre">'+d.nombre+'</div>';
+  const tg=[d.genero,d.categoria].filter(v=>v&&v!=="—");
+  html += '<div class="tags"><span class="tag tag-cadena">'+d.cadena+'</span>'+tg.map(v=>'<span class="tag">'+v+'</span>').join("")+'</div>';
+  if(d.precio || d.precio_desc){
+    html += '<div class="precios">';
+    if(d.precio) html += '<span class="precio-old">'+d.precio+'</span>';
+    if(d.precio_desc) html += '<span class="precio-new">'+d.precio_desc+'</span>';
+    html += '</div>';
+  }
+  body.innerHTML = html;
+
+  card.appendChild(imgWrap);
+  card.appendChild(body);
+  return card;
+}
+
+function render(){
+  const t = $("f-tienda") ? $("f-tienda").value : "";
+  const g = $("f-genero").value, c = $("f-categoria").value, d = $("f-descuento").value;
+  const q = $("f-buscar").value.trim().toLowerCase();
+
+  // Si hay tienda elegida, solo se permiten los índices que esa tienda tiene.
+  const permitido = (t && TIENDAS[t]) ? new Set(TIENDAS[t]) : null;
+  const aviso = $("aviso-cadena");
+  if(!CADENA){
+    $("filtros").style.display = "none"; document.querySelector(".barra-movil").style.visibility = "hidden";
+    $("contador").innerHTML = ""; aviso.style.display = "none";
+    $("grid").innerHTML = '<div class="elige" style="grid-column:1/-1"><h2>Selecciona tu cadena</h2><p>Toca <b>' + CADENAS.join('</b> o <b>') + '</b> arriba para ver los descuentos que aplican en tus tiendas.</p></div>';
+    return;
+  }
+  $("filtros").style.display = ""; document.querySelector(".barra-movil").style.visibility = "";
+  const deCadena = DATOS.filter(x => x.cadena === CADENA);
+  const pct = [...new Set(deCadena.map(x=>x.descuento))].sort((a,b)=>a-b).map(v=>v+"%").join(" y ");
+  aviso.style.display = "block";
+  aviso.innerHTML = "Estás viendo los descuentos de <b>" + CADENA.toUpperCase() + "</b> · " + deCadena.length + " referencias-color · descuento " + pct + ". Estos descuentos aplican solo en tiendas " + CADENA + ".";
+
+  const filtrado = [];
+  for(let i=0; i<DATOS.length; i++){
+    if(permitido && !permitido.has(i)) continue;
+    const x = DATOS[i];
+    if(x.cadena !== CADENA) continue;
+    if(g && x.genero !== g) continue;
+    if(c && x.categoria !== c) continue;
+    if(d && String(x.descuento) !== d) continue;
+    if(q && !((x.ref && x.ref.toLowerCase().includes(q)) || (x.nombre && x.nombre.toLowerCase().includes(q)))) continue;
+    filtrado.push(x);
+  }
+
+  const base = DATOS.filter(x => x.cadena === CADENA).length;
+  const grid = $("grid");
+  grid.innerHTML = "";
+  $("contador").innerHTML = "Mostrando <b>"+filtrado.length+"</b> de <b>"+base+"</b> referencias-color";
+  const cm = document.getElementById("conteo-movil");
+  if(cm) cm.innerHTML = "<b>"+filtrado.length+"</b> de "+base;
+  actualizarActivos();
+
+  if(filtrado.length === 0){
+    grid.innerHTML = '<div class="vacio">No hay referencias con esos filtros.</div>';
+    return;
+  }
+  filtrado.forEach(x => grid.appendChild(tarjeta(x)));
+}
+
+["f-tienda","f-genero","f-categoria","f-descuento"].forEach(id => { const el=$(id); if(el) el.addEventListener("change", render); });
+$("f-buscar").addEventListener("input", render);
+$("btn-limpiar").addEventListener("click", () => {
+  if($("f-tienda")) $("f-tienda").value="";
+  $("f-genero").value=""; $("f-categoria").value=""; $("f-descuento").value=""; $("f-buscar").value="";
+  render();
+});
+
+/* ---------- Filtros activos + toggle móvil ---------- */
+function actualizarActivos(){
+  const n = [$("f-tienda")?$("f-tienda").value:"", $("f-genero").value, $("f-categoria").value, $("f-descuento").value, $("f-buscar").value.trim()]
+    .filter(v => v).length;
+  const badge = document.getElementById("num-activos");
+  if(badge){ badge.textContent = n; badge.style.display = n ? "inline-block" : "none"; }
+}
+
+const btnFiltros = document.getElementById("btn-filtros");
+const panelFiltros = document.getElementById("filtros");
+if(btnFiltros && panelFiltros){
+  btnFiltros.addEventListener("click", () => {
+    const abierto = panelFiltros.classList.toggle("abierto");
+    btnFiltros.classList.toggle("abierto", abierto);
+    btnFiltros.setAttribute("aria-expanded", abierto ? "true" : "false");
+    if(abierto) window.scrollTo({top:0, behavior:"smooth"});
+  });
+}
+
+if(CADENA) elegirCadena(CADENA); else render();
+</script>
+</body>
+</html>
+
